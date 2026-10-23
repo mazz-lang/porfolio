@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- Primary SEO -->
+<meta name="description" content="Abhinav — Frontend Developer specializing in React, Next.js, and modern web experiences. Available for freelance and full-time roles."/>
+<meta name="keywords" content="frontend developer, React developer, Next.js, web developer India, Abhinav, Katihar devs"/>
+<meta name="author" content="Abhinav"/>
+
+<!-- Open Graph -->
+<meta property="og:title"       content="Abhinav — Frontend Developer"/>
+<meta property="og:description" content="Frontend Developer specializing in React, Next.js, and modern web experiences."/>
+<meta property="og:type"        content="website"/>
+
+<title>Abhinav — Frontend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ─── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --black:#080808;--white:#f5f5f0;
+  --grey:#2a2a2a;--dim:#777;--accent:#e8e0c8;
+}
+
+body{
+  background:var(--black);color:var(--white);
+  font-family:'DM Mono',monospace;
+  overflow-x:hidden;
+  cursor:none;
+}
+a,button,input,textarea,select,label{cursor:none!important;}
+::-webkit-scrollbar{width:2px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--dim);}
+
+/* ─── CURSOR ─── */
+#cur-dot{
+  position:fixed;top:0;left:0;
+  width:8px;height:8px;
+  background:var(--white);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  opacity:0;
+  transform:translate(-50%,-50%);
+  transition:opacity .3s,transform .12s;
+  mix-blend-mode:difference;
+}
+#cur-ring{
+  position:fixed;top:0;left:0;
+  width:36px;height:36px;
+  border:1px solid rgba(245,245,240,.5);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  opacity:0;
+  transform:translate(-50%,-50%);
+  transition:opacity .3s,transform .2s;
+  mix-blend-mode:difference;
+}
+
+/* ─── NOISE ─── */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.024;pointer-events:none;z-index:9000;
+}
+@keyframes filmstrip {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:26px 60px;
+  transition:background .4s,backdrop-filter .4s;
+}
+nav.scrolled{
+  background:rgba(8,8,8,.94);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:600;font-style:italic;
+  letter-spacing:.1em;color:var(--white);text-decoration:none;
+}
+.nav-links{display:flex;gap:44px;align-items:center;list-style:none;}
+.nav-links a{
+  font-family:'DM Mono',monospace;font-size:.68rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;
+  position:relative;opacity:.55;transition:opacity .3s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;
+  width:0;height:1px;background:var(--white);
+  transition:width .35s ease;
+}
+.nav-links a:hover{opacity:1;}
+.nav-links a:hover::after{width:100%;}
+.btn-hire{
+  font-family:'DM Mono',monospace;font-size:.68rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--black)!important;background:var(--white);
+  padding:10px 22px;text-decoration:none;
+  opacity:1!important;display:inline-block;
+  transition:background .3s,transform .2s;
+}
+.btn-hire:hover{background:var(--accent)!important;transform:translateY(-1px);}
+
+/* ─── HERO ─── */
+#hero{
+  position:relative;height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg-text{
+  position:absolute;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(100px,18vw,240px);
+  letter-spacing:-.02em;color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.035);
+  pointer-events:none;white-space:nowrap;user-select:none;
+}
+.signature-wrap{position:relative;z-index:2;margin-bottom:22px;}
+.signature-svg{width:clamp(300px,65vw,800px);height:auto;overflow:visible;}
+.sig-path{
+  fill:none;stroke:var(--white);stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:var(--len,600);
+  stroke-dashoffset:var(--len,600);
+  animation:sigDraw 2.8s cubic-bezier(.4,0,.2,1) var(--d,0s) infinite alternate;
+}
+@keyframes sigDraw{
+  0%  {stroke-dashoffset:var(--len,600);}
+  50% {stroke-dashoffset:0;}
+  100%{stroke-dashoffset:calc(var(--len,600) * -1);}
+}
+.hero-role{
+  font-family:'DM Mono',monospace;
+  font-size:clamp(.6rem,1.1vw,.78rem);
+  letter-spacing:.48em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:48px;
+}
+.hero-role span{color:var(--accent);}
+.hero-cta{display:flex;gap:18px;}
+.btn-primary{
+  font-family:'DM Mono',monospace;font-size:.7rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--black);background:var(--white);
+  padding:14px 34px;text-decoration:none;
+  display:inline-block;
+  transition:background .3s,transform .2s;
+}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px);}
+.btn-outline{
+  font-family:'DM Mono',monospace;font-size:.7rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--white);border:1px solid rgba(255,255,255,.28);
+  padding:14px 34px;text-decoration:none;display:inline-block;
+  transition:border-color .3s,transform .2s;
+}
+.btn-outline:hover{border-color:var(--white);transform:translateY(-2px);}
+
+/* ─── SECTION COMMON ─── */
+.sec{padding:130px 60px;max-width:1200px;margin:0 auto;}
+.sec-border{border-top:1px solid var(--grey);}
+.sec-label{
+  font-family:'DM Mono',monospace;font-size:.62rem;
+  letter-spacing:.42em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:16px;
+  display:flex;align-items:center;gap:14px;
+}
+.sec-label::before{content:'';display:inline-block;width:28px;height:1px;background:var(--dim);}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.6rem,5.5vw,5rem);
+  font-weight:300;line-height:1.06;margin-bottom:56px;
+}
+.sec-title em{font-style:italic;color:var(--accent);}
+
+/* ─── ABOUT ─── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;}
+.about-text p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.1rem,2vw,1.5rem);
+  font-weight:300;line-height:1.72;
+  color:rgba(245,245,240,.76);margin-bottom:24px;
+}
+.about-text p strong{color:var(--white);font-weight:600;}
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--grey);
+  border:1px solid var(--grey);margin-top:38px;
+}
+.stat{background:var(--black);padding:28px 24px;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--white);margin-bottom:4px;}
+.stat-l{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);}
+.about-frame{position:relative;}
+.about-img{width:100%;aspect-ratio:3/4;background:var(--grey);position:relative;overflow:hidden;}
+.fc{position:absolute;width:24px;height:24px;border-color:var(--white);border-style:solid;}
+.fc.tl{top:-8px;left:-8px;border-width:1px 0 0 1px;}
+.fc.tr{top:-8px;right:-8px;border-width:1px 1px 0 0;}
+.fc.bl{bottom:-8px;left:-8px;border-width:0 0 1px 1px;}
+.fc.br{bottom:-8px;right:-8px;border-width:0 1px 1px 0;}
+
+/* ─── CONTACT ─── */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:72px;align-items:start;}
+.ci{display:flex;align-items:flex-start;gap:18px;margin-bottom:32px;}
+.ci-icon{width:38px;height:38px;border:1px solid var(--grey);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem;color:var(--dim);}
+.ci-lbl{font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;}
+.ci-val{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white);}
+
+/* ─── FOOTER ─── */
+footer{
+  border-top:1px solid var(--grey);
+  padding:42px 60px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:18px;
+}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;font-style:italic;letter-spacing:.1em;color:var(--white);}
+.ft-copy{font-size:.6rem;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="nav-logo">Abhinav</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact" class="btn-hire">Hire Me!</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-bg-text">ABHINAV</div>
+  <div class="signature-wrap">
+    <svg class="signature-svg" viewBox="0 0 780 150" fill="none">
+      <!-- ABHINAV Custom Animated Stroke Paths -->
+      <path class="sig-path" style="--len:320;--d:0s"    d="M30 112 L30 22 M30 67 L68 67 M68 22 L68 112"/>
+      <path class="sig-path" style="--len:340;--d:.15s"  d="M92 112 L92 22 L124 67 L156 22 L156 112"/>
+      <path class="sig-path" style="--len:280;--d:.3s"   d="M178 112 L178 22 L210 22 C226 22 232 34 232 46 C232 58 210 67 210 67 L236 112"/>
+      <path class="sig-path" style="--len:300;--d:.45s"  d="M254 112 L254 22 L286 22 C302 22 308 34 308 46 C308 58 286 67 286 67 L312 112 M286 67 L314 112"/>
+      <path class="sig-path" style="--len:280;--d:.6s"   d="M334 112 L334 22 L366 112 M339 80 L361 80"/>
+      <path class="sig-path" style="--len:320;--d:.75s"  d="M388 112 L388 22 L420 112 L452 22 L452 112"/>
+      <path class="sig-path" style="--len:280;--d:.9s"   d="M474 112 L474 22 L516 112 L558 22 L558 112"/>
+      <path class="sig-path" style="--len:560;--d:1.2s"  d="M14 128 Q200 142 390 135 Q580 128 766 136"/>
+    </svg>
+  </div>
+  <p class="hero-role"><span>—</span> Frontend Developer <span>—</span></p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View Work</a>
+    <a href="#contact"  class="btn-outline">Let's Talk</a>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about" class="sec sec-border">
+  <p class="sec-label">About</p>
+  <h2 class="sec-title">Crafting <em>interfaces</em><br>that feel alive.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Hi, I'm <strong>Abhinav</strong> — a frontend developer focused on clean code, seamless animations, and exceptional user interfaces.</p>
+      <p>From pixel-perfect designs to fully responsive web apps, I build digital experiences with <strong>precision and passion</strong>.</p>
+      <div class="about-stats">
+        <div class="stat"><div class="stat-n">2+</div><div class="stat-l">Years Exp.</div></div>
+        <div class="stat"><div class="stat-n">15+</div><div class="stat-l">Projects</div></div>
+      </div>
+    </div>
+    <div class="about-frame">
+      <div class="about-img">
+        <img src="handsome-anime-boy-profile-vector.jpg" alt="Abhinav" style="width:100%;height:100%;object-fit:cover;"/>
+      </div>
+      <div class="fc tl"></div><div class="fc tr"></div>
+      <div class="fc bl"></div><div class="fc br"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="sec sec-border">
+  <p class="sec-label">Get In Touch</p>
+  <h2 class="sec-title">Let's build<br>something <em>great.</em></h2>
+  <div class="contact-grid">
+    <div>
+      <div class="ci">
+        <div class="ci-icon">@</div>
+        <div><div class="ci-lbl">Email</div><div class="ci-val">abhinav11november@gmail.com</div></div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon">☏</div>
+        <div><div class="ci-lbl">Phone</div><div class="ci-val">+91 7903629713</div></div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon">⌖</div>
+        <div><div class="ci-lbl">Location</div><div class="ci-val">India — Available Worldwide</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="ft-logo">Abhinav</div>
+  <div class="ft-copy">© 2026 — Designed & Built by Abhinav</div>
+</footer>
+
+<script>
+/* CURSOR */
+const dot  = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mouseX=0, mouseY=0, ringX=0, ringY=0, started=false;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+  if (!started) { started = true; dot.style.opacity = '1'; ring.style.opacity = '1'; }
+});
+
+(function animRing() {
+  ringX += (mouseX - ringX) * 0.13;
+  ringY += (mouseY - ringY) * 0.13;
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
+</body>
+</html>
